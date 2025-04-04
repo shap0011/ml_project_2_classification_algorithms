@@ -8,7 +8,7 @@
 [theme]
 primaryColor="#c24d2c" #red
 backgroundColor="#d9dad7" #lightgray
-secondaryBackgroundColor="#f0ece2" # beige
+secondaryBackgroundColor="#feffdf" # lightyellow
 textColor="#262730" # darkblue
 font="sans serif"
 

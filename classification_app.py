@@ -110,5 +110,51 @@ round_percent_approved = round(percent_approved, 1)
 # display message
 st.write(f"{yes_count} people (around {round_percent_approved}%) out of {yes_no_count} were approved for loan")
 
+# handle missing values
+# display subheader
+st.markdown("##### Missing value imputation")
+
+# check for missing values in each variable
+st.write("Count missing values in each of the dataset columns:")
+missing_values = df.isnull().sum()
+# display dataframe table
+# st.dataframe(missing_values)
+
+# loop through the missing values dictionary and print column names and their missing values side by side
+# for column, missing_count in missing_values.items():
+#     st.markdown(f"<span style='background-color: #feffdf;'>**{column}:** {missing_count} missing</span>", unsafe_allow_html=True)
+
+# build HTML string
+all_missing = ""
+
+for column, missing_count in missing_values.items():
+    all_missing += f"<strong>{column}:</strong> {missing_count} missing<br>"
+
+# wrap it all in one div
+st.markdown(f"""
+<div style='background-color: #feffdf; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>
+    {all_missing}
+</div>
+""", unsafe_allow_html=True)
+  
+# display subheader
+st.markdown("##### Methods to fill in the missing values:")
+
+# write the handling of the missing values steps  
+st.markdown("""
+            - For numerical variables: imputate using mean or median
+            - For categorical variables: imputate using mode
+            
+            For e.g. in the `Loan_Amount_Term` variable, the value of 360 is repeating the most.
+            
+            Check that by using `train['Loan_Amount_Term'].value_counts()`
+            and replace the missing values in this variable using the mode of this variable. i.e. 360
+            
+            For the `LoanAmoun`t variable, check if the variable has ouliers by plotting a box plot. 
+            
+            If there are outliers use the median to fill the null values since mean is highly affected 
+            by the presence of outliers. If there are no outliers use mean to impute missing values in `LoanAmount`
+            """)
+
 
 
