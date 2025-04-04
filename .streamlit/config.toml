@@ -1,6 +1,18 @@
+# [theme]
+# primaryColor="#F63366"
+# backgroundColor="#FFFFFF"
+# secondaryBackgroundColor="#F0F2F6"
+# textColor="#1a2639"
+# font="sans serif"
+
 [theme]
-primaryColor="#F63366"
-backgroundColor="#FFFFFF"
-secondaryBackgroundColor="#F0F2F6"
-textColor="#262730"
+primaryColor="#c24d2c" #red
+backgroundColor="#d9dad7" #lightgray
+secondaryBackgroundColor="#f0ece2" # beige
+textColor="#262730" # darkblue
 font="sans serif"
+
+# #3e4a61 # bluegray
+
+# https://www.shecodes.io/palettes/622
+
