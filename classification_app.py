@@ -444,6 +444,150 @@ list_tunable_hyperparameters = RandomForestClassifier().get_params()
 hyperparameters_df = pd.DataFrame(list(list_tunable_hyperparameters.items()), columns=["Hyperparameter", "Default Value"])
 
 # display the dataframe
-st.subheader("Tunable Hyperparameters for Random Forest")
+st.markdown("##### Tunable Hyperparameters for Random Forest")
 st.dataframe(hyperparameters_df)
+
+st.markdown("""
+            For random forests,
+               - The first hyperparameter to tune is n_estimators. We will try 100 and 200.
+               - The second one is max_features. Let's try - 'auto', 'sqrt', and 0.33.
+               - The third one is Max_depth. Let's try - 3, 4
+            """)
+
+# create variables for rows and columns counts
+rows_count = xtrain.shape[0]
+columns_count = xtrain.shape[1]
+# display dataset shape
+st.markdown(f"""
+    <div style='background-color: {div_color}; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>
+            x-train shape:
+            <ul>
+             <li><strong>Rows:</strong> { rows_count }</li>
+             <li><strong>Columns:</strong> { columns_count }</li>
+            </ul>
+    </div>
+    <hr>
+""", unsafe_allow_html=True)
+
+# display a subheader
+st.markdown("##### Hyperparameter Tuning")
+
+# import the RandomForestClassifier from scikit-learn
+from sklearn.ensemble import RandomForestClassifier
+
+# create a Random Forest model with specific hyperparameters:
+# n_estimators=2 -> number of trees in the forest
+# max_depth=2 -> maximum depth of each tree
+# max_features=10 -> number of features to consider when looking for the best split
+rfmodel = RandomForestClassifier(n_estimators=2,
+                                  max_depth=2,
+                                  max_features=10)
+
+# train (fit) the Random Forest model on the training data
+rfmodel.fit(xtrain, ytrain)
+
+# predict the target values (loan approval) on the testing data
+ypred = rfmodel.predict(xtest)
+
+# import metrics to evaluate the model
+# from sklearn.metrics import accuracy_score, confusion_matrix
+
+# display the accuracy score (how many correct predictions)
+st.write(accuracy_score(ytest, ypred), '\n')
+
+# compute the confusion matrix
+conf_matrix = confusion_matrix(ytest, ypred)
+
+# turn it into a labeled DataFrame
+conf_matrix_df = pd.DataFrame(
+    conf_matrix,
+    index=["Actual No", "Actual Yes"],      # row labels
+    columns=["Predicted No", "Predicted Yes"]  # column labels
+)
+
+# display the confusion matrix
+st.markdown("##### Confusion Matrix")
+st.dataframe(conf_matrix_df)
+
+# get feature importances
+feature_importance = rfmodel.feature_importances_
+
+# create a DataFrame: feature names + importance scores
+importance_df = pd.DataFrame({
+    'Feature': xtrain.columns,
+    'Importance': feature_importance
+})
+
+# sort features by importance (high to low)
+importance_df = importance_df.sort_values(by='Importance', ascending=False)
+
+# display with highlight for Top 3
+st.markdown("##### Feature Importance Table (Top 3 Highlighted)")
+
+# function to highlight top 3 rows
+def highlight_top_3(s):
+    return ['background-color: #ffeb99' if i < 3 else '' for i in range(len(s))]
+
+# apply highlighting
+styled_df = importance_df.style.apply(highlight_top_3, axis=0)
+
+# show the styled table
+st.dataframe(styled_df)
+
+# plot as a bar chart
+st.markdown("##### Feature Importance Chart")
+fig, ax = plt.subplots()
+ax.barh(importance_df['Feature'], importance_df['Importance'])
+ax.invert_yaxis()  # top feature on top
+ax.set_xlabel('Importance Score')
+ax.set_title('Feature Importance')
+st.pyplot(fig)
+
+# add a subheader
+st.markdown(f"<h3 style='color: {header_color};'>Cross Validation</h3>", unsafe_allow_html=True)
+
+# import rquired libraries
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
+
+# if you have a imbalanced dataset, you can use stratifiedKFold
+from sklearn.model_selection import StratifiedKFold
+
+# display a subheader
+st.markdown("##### Cross-Validation Results for Logistic Regression")
+
+# set up a KFold cross-validation
+kfold = KFold(n_splits=5)
+
+# use cross-validation to evaluate the model
+lr_scores = cross_val_score(lrmodel, xtrain_scaled, ytrain, cv=kfold)
+
+# display the accuracy scores for each fold as a dataframe
+st.markdown("##### Accuracy Scores for Each Fold:")
+st.dataframe(pd.DataFrame(lr_scores, columns=["Accuracy Score"]))
+
+# display the mean accuracy and standard deviation nicely
+st.markdown("##### Summary Statistics:")
+st.markdown(f"- **Mean Accuracy:** `{lr_scores.mean():.4f}`")
+st.markdown(f"- **Standard Deviation:** `{lr_scores.std():.4f}`")
+
+# display a subheader
+st.markdown("##### Cross-Validation Results for Random Forest")
+
+# set up a KFold cross-validation
+kfold = KFold(n_splits=5)
+
+# use cross-validation to evaluate the model
+rf_scores = cross_val_score(rfmodel, xtrain_scaled, ytrain, cv=kfold)
+
+# display the accuracy scores for each fold as a dataframe
+st.markdown("##### Accuracy Scores for Each Fold:")
+st.dataframe(pd.DataFrame(rf_scores, columns=["Accuracy Score"]))
+
+# display the mean accuracy and standard deviation nicely
+st.markdown("##### Summary Statistics:")
+st.markdown(f"- **Mean Accuracy:** `{rf_scores.mean():.4f}`")
+st.markdown(f"- **Standard Deviation:** `{rf_scores.std():.4f}`")
+
+
 
