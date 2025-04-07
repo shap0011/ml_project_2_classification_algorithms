@@ -7,12 +7,10 @@
 
 [theme]
 primaryColor="#c24d2c" #red
-backgroundColor="#d9dad7" #lightgray
-secondaryBackgroundColor="#feffdf" # lightyellow
-textColor="#262730" # darkblue
+backgroundColor="#FBFDFF" #lightblue
+secondaryBackgroundColor="#fdffc6" # lightyellow
+textColor="#000000" # black
 font="sans serif"
-
-# #3e4a61 # bluegray
 
 # https://www.shecodes.io/palettes/622
 
