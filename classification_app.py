@@ -333,15 +333,20 @@ st.markdown(f"""
     <hr>
 """, unsafe_allow_html=True)
 
-xtrain_shape, xtest_shape, ytrain_shape, ytest_shape = xtrain.shape, xtest.shape, ytrain.shape, ytest.shape
+xtrain_shape = str(xtrain.shape)
+xtest_shape = str(xtest.shape)
+ytrain_shape = str(ytrain.shape)
+ytest_shape = str(ytest.shape)
+
 st.markdown(f"""
 The splitted data dimensions in training and testing set:
 
-- `x-train`: {xtrain_shape}
-- `x-test`: {xtest_shape}
-- `y-train`: {ytrain_shape}
-- `y-test`: {ytest_shape}
+- `x-train`: `{xtrain_shape}`
+- `x-test`: `{xtest_shape}`
+- `y-train`: `{ytrain_shape}`
+- `y-test`: `{ytest_shape}`
 """)
+
 
 # display subheader
 st.markdown("##### Feature Scaling Using Min-Max Scaler")
