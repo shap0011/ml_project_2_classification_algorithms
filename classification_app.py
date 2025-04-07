@@ -590,4 +590,24 @@ st.markdown(f"- **Mean Accuracy:** `{rf_scores.mean():.4f}`")
 st.markdown(f"- **Standard Deviation:** `{rf_scores.std():.4f}`")
 
 
+st.markdown("""
+                Note:<br>
+                    <ol>
+                        <li>
+                            By using cross-validation, we can get a better estimate of the performance 
+                            of the model than by using a single train-test split. This is because cross-validation 
+                            uses all the data for training and testing, and averages the results over multiple iterations, 
+                            which helps to reduce the impact of random variations in the data.
+                        </li>
+                        <li>
+                            `StratifiedKFold` is a variation of KFold that preserves the proportion of samples 
+                            for each class in each fold. This is important when the target variable is imbalanced, 
+                            i.e., when some classes have many more samples than others. By preserving the class proportions 
+                            in each fold, StratifiedKFold ensures that each fold is representative of the overall dataset 
+                            and helps to avoid overfitting or underfitting on specific classes.
+                        </li>
+                    </ol>
+            """, unsafe_allow_html=True)
+
+
 
