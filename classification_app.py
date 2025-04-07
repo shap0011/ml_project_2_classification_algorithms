@@ -319,10 +319,30 @@ st.markdown(f"""
 
 xtrain_shape, xtest_shape, ytrain_shape, ytest_shape = xtrain.shape, xtest.shape, ytrain.shape, ytest.shape
 st.markdown(f"""
-The splatted data dimensions in training and testing set:
+The splitted data dimensions in training and testing set:
 
 - `x-train`: {xtrain_shape}
 - `x-test`: {xtest_shape}
 - `y-train`: {ytrain_shape}
 - `y-test`: {ytest_shape}
 """)
+
+# import the MinMaxScaler from scikit-learn
+from sklearn.preprocessing import MinMaxScaler
+
+# initialize the scaler
+scale = MinMaxScaler()
+
+# display the first two rows of the training data to understand the raw input before scaling
+xtrain_head_2 = xtrain.head(2)
+st.dataframe(xtrain_head_2)
+
+# scale the training and testing data
+# first, fit the scaler on the training data and transform it
+xtrain_scaled = scale.fit_transform(xtrain)
+
+# then, transform the testing data using the same scaler (important: do NOT fit again on test data)
+xtest_scaled = scale.transform(xtest)
+
+
+
