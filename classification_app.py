@@ -107,6 +107,8 @@ ax.set_title('Loan Approval Distribution')
 # display the plot
 st.pyplot(fig)
 
+
+
 # Count Approved and Disapproved loans
 yes_count = df['Loan_Approved'].value_counts().get('Y', 0)
 no_count = df['Loan_Approved'].value_counts().get('N', 0)
@@ -203,6 +205,8 @@ sns.distplot(df['LoanAmount'], ax=ax)
 # Display the plot in Streamlit
 st.pyplot(fig)
 
+
+
 # display subheader
 st.markdown("##### Converting 'Credit_History' and 'Loan_Amount_Term' to object type")
 
@@ -220,6 +224,8 @@ st.markdown("##### Finding 'Married' column mode")
 # [0] selects the first mode in case there are multiple modes
 married_mode = df['Married'].mode()[0]
 st.write(f"The Mode 'Married': `{married_mode}`")
+
+
 
 # display subheader
 st.markdown("##### Handling Missing Values")
@@ -247,10 +253,16 @@ confirm_missing_values = df.isnull().sum()
 st.write("Confirm if there are any missing values left:")
 st.dataframe(confirm_missing_values)
 
+
+
 # data prep section
 st.markdown(f"<h2 style='color: {header_color};'>Data Preparation</h2>", unsafe_allow_html=True)
 st.write("The `Loan_ID` variable will be dropped from the data as it isn't needed for analysis")
-st.write("Display the first three rows of the dataset")
+st.write("Drop 'Loan_ID' variable from the data and display the first three rows of the dataset")
+
+# drop 'Loan_ID' variable from the data. We won't need it.
+df = df.drop('Loan_ID', axis=1)
+
 df_head_3 = df.head(3)
 st.dataframe(df_head_3)
 
@@ -258,9 +270,6 @@ st.dataframe(df_head_3)
 st.write("Check data types:")
 df_types = df.dtypes
 st.dataframe(df_types)
-
-raw = df.copy()
-df.describe(include='all')
 
 # create a copy of the original DataFrame and store it in 'raw'
 # this is useful to keep the original data unchanged for backup or reference
@@ -276,6 +285,13 @@ st.dataframe(describe)
 
 # display subheader
 st.write("Display the first two rows of the dataset:")
+df_head_2 = df.head(2)
+st.dataframe(df_head_2)
+
+# display subheader
+st.write("Create dummy variables for all 'object' type variables except `Loan_Status` and display first two rows of the dataset:")
+# Create dummy variables for all 'object' type variables except 'Loan_Status'
+df = pd.get_dummies(df, columns=['Gender', 'Married', 'Dependents','Education','Self_Employed','Property_Area'], dtype=int)
 df_head_2 = df.head(2)
 st.dataframe(df_head_2)
 
@@ -327,6 +343,9 @@ The splitted data dimensions in training and testing set:
 - `y-test`: {ytest_shape}
 """)
 
+# display subheader
+st.markdown("##### Feature Scaling Using Min-Max Scaler")
+
 # import the MinMaxScaler from scikit-learn
 from sklearn.preprocessing import MinMaxScaler
 
@@ -335,6 +354,7 @@ scale = MinMaxScaler()
 
 # display the first two rows of the training data to understand the raw input before scaling
 xtrain_head_2 = xtrain.head(2)
+st.write("Display the first two rows of the training data to understand the raw input before scaling")
 st.dataframe(xtrain_head_2)
 
 # scale the training and testing data
@@ -344,5 +364,86 @@ xtrain_scaled = scale.fit_transform(xtrain)
 # then, transform the testing data using the same scaler (important: do NOT fit again on test data)
 xtest_scaled = scale.transform(xtest)
 
+# add a subheader
+st.markdown(f"<h2 style='color: {subheader_color};'>Models</h2>", unsafe_allow_html=True)
 
+# add a subheader
+st.markdown(f"<h3 style='color: {header_color};'>1. Logistic Regression</h3>", unsafe_allow_html=True)
+
+# logistic Regression Model and Accuracy Evaluation
+
+# import the LogisticRegression model from scikit-learn
+from sklearn.linear_model import LogisticRegression
+# train a Logistic Regression model on the scaled training data
+lrmodel = LogisticRegression().fit(xtrain_scaled, ytrain)
+
+# Predict the loan eligibility on testing set and calculate its accuracy.
+# First, from sklearn.metrics import accuracy_score and confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# predict the loan eligibility on the scaled testing data
+ypred = lrmodel.predict(xtest_scaled)
+
+# calculate the accuracy score by comparing the predictions to the true labels
+accuracy_score = accuracy_score(ypred, ytest)
+# write subheader
+st.markdown("##### Logistic Regression Model and Accuracy Evaluation")
+st.write("Calculate the accuracy score by comparing the predictions to the true labels")
+# display the accuracy score in the Streamlit app
+st.write(accuracy_score)
+
+# create a DataFrame to compare actual vs predicted values
+comparison_df = pd.DataFrame({
+    'Actual': ytest,
+    'Predicted': ypred
+})
+
+# display the comparison table
+st.subheader("Actual vs Predicted Loan Eligibility")
+st.dataframe(comparison_df)
+
+# display the confusion matrix
+conf_matrix = confusion_matrix(ytest, ypred)
+st.write("Confusion Matrix")
+st.dataframe(conf_matrix)
+
+
+# import accuracy_score
+from sklearn.metrics import accuracy_score
+
+# predict probabilities
+pypred = lrmodel.predict_proba(xtest_scaled)
+
+# turn probabilities into a DataFrame
+proba_df = pd.DataFrame(pypred, columns=["Probability_No", "Probability_Yes"])
+
+# display the probability table
+st.write("Check how probabilities are assigned")
+st.dataframe(proba_df)
+
+# change the threshold to 70%
+proba_pred = (pypred[:, 1] >= 0.7).astype(int)
+
+# calculate new accuracy
+from sklearn.metrics import accuracy_score
+accuracy_proba_pred = accuracy_score(ytest, proba_pred)
+
+st.write("Change the default threshold to 70% and above")
+st.write("Count accuracy score")
+st.write(accuracy_proba_pred)
+
+# add a subheader
+st.markdown(f"<h3 style='color: {header_color};'>2. Random Forest</h3>", unsafe_allow_html=True)
+
+# import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+# list the tunable hyperparameters for Random Forest algorithm
+list_tunable_hyperparameters = RandomForestClassifier().get_params()
+# convert the dictionary to a DataFrame
+hyperparameters_df = pd.DataFrame(list(list_tunable_hyperparameters.items()), columns=["Hyperparameter", "Default Value"])
+
+# display the dataframe
+st.subheader("Tunable Hyperparameters for Random Forest")
+st.dataframe(hyperparameters_df)
 
