@@ -1,7 +1,7 @@
 # Loading all the necessary packages
 
 import os
-os.environ['STREAMLIT_LOG_LEVEL'] = 'info'
+os.environ['STREAMLIT_LOG_LEVEL'] = 'debug'
 
 import logging
 
