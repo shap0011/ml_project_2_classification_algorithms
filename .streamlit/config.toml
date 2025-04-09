@@ -14,3 +14,6 @@ font="sans serif"
 
 # https://www.shecodes.io/palettes/622
 
+[logger]
+level = "debug"
+
