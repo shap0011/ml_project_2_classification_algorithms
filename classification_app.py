@@ -7,7 +7,7 @@ import logging
 
 # Configure logging manually again
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
