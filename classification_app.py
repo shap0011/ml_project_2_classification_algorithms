@@ -28,14 +28,14 @@ from app_module import functions as func
 
 warnings.filterwarnings('ignore')
 
-# Define color variables
-header_color = "#c24d2c"  # red color
-div_color = "#feffe0"  # yellow color
-subheader_color = "#000"  # yellow color
-
 try:    
     # Set page configuration
     st.set_page_config(page_title="Loan Eligibility App", layout="wide")
+    
+    # Define color variables
+    header_color = "#c24d2c"  # red color
+    div_color = "#feffe0"  # yellow color
+    subheader_color = "#000"  # yellow color
 
     # set the title of the Streamlit app
     st.markdown(f"<h1 style='color: {header_color};'>Project 2. Classification Algorithms</h1>", unsafe_allow_html=True)
