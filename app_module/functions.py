@@ -5,7 +5,7 @@ import logging
 
 # Configure logging manually again
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
@@ -268,6 +268,9 @@ def cross_validate_model(model, xtrain, ytrain, model_name):
     kfold = KFold(n_splits=5)
     # use cross-validation to evaluate the model
     scores = cross_val_score(model, xtrain, ytrain, cv=kfold)
+    # display the accuracy scores for each fold as a dataframe
+    st.markdown("##### Accuracy Scores for Each Fold:")
+    st.dataframe(pd.DataFrame(scores, columns=["Accuracy Score"]))
     # display the mean accuracy and standard deviation
     st.write(f"Scores: `{scores}`")
     st.write(f"Mean Accuracy: `{scores.mean():.4f}`")
