@@ -18,6 +18,32 @@ The app is designed to:
 
 - **Predict loan eligibility** with **target accuracy > 76%**.
 
+## Features
+- **Exploratory Data Analysis (EDA):** Missing values, distributions
+
+- **Data Cleaning:** Handling nulls, encoding categorical features
+
+- **Feature Scaling:** Min-Max Scaler
+
+- **Model Training:** Logistic Regression, Random Forest
+
+- **Model Evaluation:** Accuracy, Confusion Matrix, Feature Importance
+
+- **Cross-Validation:** 5-Fold Validation
+
+- **Error Handling:** Try-Except blocks and logging for robustness
+
+- **Logging:** Debugging and error tracking via Python's logging module
+
+## Technologies Used
+
+- [Streamlit](https://streamlit.io/) - For building the interactive web app
+- [Scikit-learn](https://scikit-learn.org/) - For machine learning models
+- [Pandas](https://pandas.pydata.org/) - For data manipulation
+- [Matplotlib](https://matplotlib.org/) - For plotting the decision tree
+- [Logging](https://docs.python.org/3/library/logging.html) - For backend log management
+- [Logging](https://seaborn.pydata.org/) - For creating the distribution plot
+
 ## Project Structure
 
 - **.streamlit/**
