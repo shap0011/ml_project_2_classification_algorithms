@@ -42,7 +42,7 @@ The app is designed to:
 - [Pandas](https://pandas.pydata.org/) - For data manipulation
 - [Matplotlib](https://matplotlib.org/) - For plotting the decision tree
 - [Logging](https://docs.python.org/3/library/logging.html) - For backend log management
-- [Logging](https://seaborn.pydata.org/) - For creating the distribution plot
+- [Seaborn](https://seaborn.pydata.org/) - For creating the distribution plot
 
 ## Project Structure
 
@@ -109,7 +109,7 @@ streamlit run classification_app.py
 
 ## Deployment
 The app is also deployed on Streamlit Cloud.
-Click [![Here](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ml-project-2-classification-algorithms.streamlit.app/) to view the live app.
+Click [![Here](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ww4v2vg862w68kua62vwcj.streamlit.app/) to view the live app.
 
 ## Author
 Name: Olga Durham
