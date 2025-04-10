@@ -11,9 +11,10 @@ backgroundColor="#FBFDFF" #lightblue
 secondaryBackgroundColor="#fdffc6" # lightyellow
 textColor="#000000" # black
 font="sans serif"
+baseFontSize = 18  
 
 # https://www.shecodes.io/palettes/622
 
 [logger]
-level = "debug"
+level = "info"
 

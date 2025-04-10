@@ -1,13 +1,13 @@
 # Loading all the necessary packages
 
 import os
-os.environ['STREAMLIT_LOG_LEVEL'] = 'debug'
+os.environ['STREAMLIT_LOG_LEVEL'] = 'info'
 
 import logging
 
 # Configure logging manually again
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
