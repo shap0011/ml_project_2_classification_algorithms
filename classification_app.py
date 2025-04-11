@@ -28,7 +28,10 @@ from app_module import functions as func
 
 warnings.filterwarnings('ignore')
 
-try:    
+try: 
+    
+    #-------- page setting, header, intro ---------------------
+       
     # Set page configuration
     st.set_page_config(page_title="Loan Eligibility App", layout="wide")
     
@@ -38,21 +41,43 @@ try:
     subheader_color = "#000"  # yellow color
 
     # set the title of the Streamlit app
-    st.markdown(f"<h1 style='color: {header_color};'>Project 2. Classification Algorithms</h1>", unsafe_allow_html=True)
+    # st.markdown(f"<h1 style='color: {header_color};'>Project 2. Classification Algorithms</h1>", unsafe_allow_html=True)
 
     # add subheader
-    st.markdown(f"<h2 style='color: {subheader_color};'>Loan Eligibility Prediction model</h2>", unsafe_allow_html=True)
+    # st.markdown(f"<h2 style='color: {subheader_color};'>Loan Eligibility Prediction model</h2>", unsafe_allow_html=True)
     # load the dataset from a CSV file located in the 'data' folder
-    df = func.load_data('data/credit.csv')
+    
+    #-------- the app overview -----------------------------
+    
+    
+    
+    #-------- user instructions -------------------------------
+    
+    
+    
+    #-------- the dataset loading -----------------------------
+    
+    try:
+        df = func.load_data('data/credit.csv')
+        logging.info("Dataset loaded successfully!")
+        logging.warning("[INFO] Dataset loaded successfully.") # for the Streamlit web app
+    except FileNotFoundError as e:
+        logging.error(f"File not found: {e}")
+        st.error("Dataset file not found. Please check the 'data/final.csv' path.")
+    except Exception as e:
+        logging.error(f"Error loading dataset: {e}")
+        st.error("An unexpected error occurred while loading the dataset.")
 
     # show scope and dictionary
-    func.show_scope(header_color)
-    func.show_data_dictionary(header_color)
+    # func.show_scope(header_color)
+    # func.show_data_dictionary(header_color)
 
     # display the first five rows of the dataset in the app
-    func.preview_data(df, div_color)
+    # func.preview_data(df, div_color)
+    
+     #-------- loan approval distribution -----------------------------
 
-    st.markdown("##### How many application were approved and how many were denied?")
+    # st.markdown("##### How many application were approved and how many were denied?")
 
     # create visualization
     # plot loan approval distribution
