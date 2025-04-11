@@ -27,7 +27,7 @@ try:
     header_color = "#c24d2c"
 
     # set the title of the Streamlit app    
-    st.markdown(f"<h1 style='color: {header_color};'>🏦 Loan Eligibility  App</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='color: {header_color};'>🏦 Loan Eligibility Prediction App</h1>", unsafe_allow_html=True)
     
        
     #-------- the app overview -----------------------------
