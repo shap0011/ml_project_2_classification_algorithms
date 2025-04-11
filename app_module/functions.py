@@ -11,14 +11,12 @@ logging.basicConfig(
 
 import pandas as pd
 import streamlit as st
-import seaborn as sns
-import matplotlib.pyplot as plt
 import warnings
 from sklearn.model_selection import train_test_split, cross_val_score, KFold
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score
 
 warnings.filterwarnings('ignore')
 

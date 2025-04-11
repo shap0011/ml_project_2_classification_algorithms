@@ -8,7 +8,6 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
-from sklearn.ensemble import RandomForestClassifier
 from app_module import functions as func
 
 logging.basicConfig(
@@ -113,21 +112,6 @@ try:
     except Exception as e:
         logging.error(f"Failed to train Logistic Regression: {e}", exc_info=True)
         st.error("Failed to train Logistic Regression model.")
-
-    # ----------------------
-
-    # list the tunable hyperparameters for Random Forest algorithm
-    list_tunable_hyperparameters = RandomForestClassifier().get_params()
-    # convert the dictionary to a DataFrame
-    hyperparameters_df = pd.DataFrame(list(list_tunable_hyperparameters.items()), columns=["Hyperparameter", "Default Value"])
-
-    # Random Forest
-    rfmodel = func.train_random_forest(xtrain, ytrain)
-  
-    #--------------------------------
-
-    # get feature importances
-    feature_importance = rfmodel.feature_importances_
     
     # ----------- USER INPUT FORM: Predict Loan Eligibility ------------
 
