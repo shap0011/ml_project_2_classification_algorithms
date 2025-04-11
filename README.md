@@ -14,8 +14,6 @@ The app is designed to:
 
     - Random Forest Classifier
 
-- **Tune hyperparameters** and **cross-validate** models.
-
 - **Predict loan eligibility** with **target accuracy > 76%**.
 
 ## Features
@@ -26,8 +24,6 @@ The app is designed to:
 - **Feature Scaling:** Min-Max Scaler
 
 - **Model Training:** Logistic Regression, Random Forest
-
-- **Model Evaluation:** Accuracy, Confusion Matrix, Feature Importance
 
 - **Cross-Validation:** 5-Fold Validation
 
