@@ -460,6 +460,79 @@ try:
                             </li>
                         </ol>
                 """, unsafe_allow_html=True)
+    
+    # ----------- USER INPUT FORM: Predict Loan Eligibility ------------
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.subheader("🏦 Predict Loan Eligibility Based on Your Inputs")
+
+    # Load the trained Logistic Regression model (use your lrmodel already trained above)
+    model = lrmodel
+
+    # Define the feature columns (important: these must match the training features)
+    feature_names = xtrain.columns.tolist()
+
+    with st.form(key="loan_prediction_form"):
+        st.markdown("### Enter Applicant Details:")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            ApplicantIncome = st.number_input("Applicant Income:", min_value=0, value=5000)
+            CoapplicantIncome = st.number_input("Coapplicant Income:", min_value=0, value=2000)
+            LoanAmount = st.number_input("Loan Amount (in thousands):", min_value=0, value=150)
+            Loan_Amount_Term_360 = st.selectbox("Loan Amount Term is 360 months?", options=[0, 1])
+            Credit_History = st.selectbox("Credit History (1: Good, 0: Bad):", options=[1, 0])
+            Property_Area_Semiurban = st.selectbox("Property Area is Semiurban?", options=[0, 1])
+
+        with col2:
+            Gender_Male = st.selectbox("Is Applicant Male?", options=[0, 1])
+            Married_Yes = st.selectbox("Is Applicant Married?", options=[0, 1])
+            Dependents_0 = st.selectbox("Dependents (0)?", options=[0, 1])
+            Education_Not_Graduate = st.selectbox("Is Not Graduate?", options=[0, 1])
+            Self_Employed_Yes = st.selectbox("Is Self Employed?", options=[0, 1])
+            Property_Area_Urban = st.selectbox("Property Area is Urban?", options=[0, 1])
+
+        submit_button = st.form_submit_button(label="Predict Loan Eligibility")
+
+    # ----------- After Submit -------------
+    if submit_button:
+        try:
+            # Create a DataFrame from user input
+            user_input = pd.DataFrame([[
+                ApplicantIncome,
+                CoapplicantIncome,
+                LoanAmount,
+                Loan_Amount_Term_360,
+                Credit_History,
+                Property_Area_Semiurban,
+                Gender_Male,
+                Married_Yes,
+                Dependents_0,
+                Education_Not_Graduate,
+                Self_Employed_Yes,
+                Property_Area_Urban
+            ]], columns=feature_names)
+
+            # Scale user input like training data
+            from sklearn.preprocessing import MinMaxScaler
+            scaler = MinMaxScaler()
+            scaler.fit(xtrain)  # Fit scaler to training set
+            user_input_scaled = scaler.transform(user_input)
+
+            # Make prediction
+            prediction = model.predict(user_input_scaled)[0]
+
+            if prediction == 1:
+                st.success("✅ Congratulations! Loan Approved.")
+            else:
+                st.error("❌ Sorry, Loan Not Approved.")
+
+        except Exception as e:
+            logging.error(f"Prediction failed: {e}", exc_info=True)
+            st.error("Prediction failed. Please check your inputs or try again.")
+
+    
 except Exception as e:
     logging.error(f"An error occurred: {e}", exc_info=True)
     st.error("Something went wrong! Please check the logs or try again later.")
