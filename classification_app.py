@@ -20,7 +20,7 @@ try:
     #-------- page setting, header, intro ---------------------
        
     # Set page configuration
-    st.set_page_config(page_title="🏦 Loan Eligibility Prediction App", layout="wide")
+    st.set_page_config(page_title="🏦 Loan Eligibility Prediction App", layout="centered")
     
     # Define color variables
     header_color = "#c24d2c"
