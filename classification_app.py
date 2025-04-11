@@ -34,16 +34,16 @@ try:
     
     st.markdown("""
     ### Overview
-Welcome to the Loan Eligibility Prediction App!
+    Welcome to the Loan Eligibility Prediction App!
 
-This web application helps predict whether a loan applicant is likely to be approved 
-for a loan based on their personal and financial information.
+    This web application helps predict whether a loan applicant is likely to be approved 
+    for a loan based on their personal and financial information.
 
-Using machine learning models trained on real-world data, the app analyzes inputs 
-like applicant income, loan amount, credit history, and more to determine the probability of loan approval.
+    Using machine learning models trained on real-world data, the app analyzes inputs 
+    like applicant income, loan amount, credit history, and more to determine the probability of loan approval.
 
-It provides instant feedback to assist banks, financial advisors, and applicants 
-in understanding eligibility chances before a formal application is submitted.
+    It provides instant feedback to assist banks, financial advisors, and applicants 
+    in understanding eligibility chances before a formal application is submitted.
     """)
     
     #-------- user instructions -------------------------------
