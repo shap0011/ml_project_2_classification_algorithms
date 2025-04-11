@@ -110,7 +110,7 @@ streamlit run classification_app.py
 
 ## Deployment
 The app is also deployed on Streamlit Cloud.
-Click [![Here](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ww4v2vg862w68kua62vwcj.streamlit.app/) to view the live app.
+Click [![Here](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://loan-eligibility-prediction-app-shap0011.streamlit.app/) to view the live app.
 
 ## Author
 Name: Olga Durham
