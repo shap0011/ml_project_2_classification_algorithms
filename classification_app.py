@@ -5,9 +5,6 @@ os.environ['STREAMLIT_LOG_LEVEL'] = 'info'
 import logging
 import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
 from app_module import functions as func
 
 logging.basicConfig(
@@ -75,7 +72,7 @@ try:
     try:
         df = func.load_data('data/credit.csv')
         logging.info("Dataset loaded successfully!")
-        logging.warning("[INFO] Dataset loaded successfully.") # for the Streamlit web app
+        logging.warning("[INFO] Dataset loaded successfully.")
     except FileNotFoundError as e:
         logging.error(f"File not found: {e}")
         st.error("Dataset file not found. Please check the 'data/final.csv' path.")
